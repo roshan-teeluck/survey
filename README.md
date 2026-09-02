@@ -9,10 +9,10 @@ tells them exactly how many tries it took. Every click is pushed to Supabase.
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | The three screens (question, reason, thank you) inside a phone frame |
-| `style.css` | Phone frame, button growth, form and receipt styling |
-| `app.js` | Button logic, copy, confetti, Supabase inserts |
-| `supabase-config.js` | Your Supabase URL, anon key and table name |
+| `public/index.html` | The three screens (question, reason, thank you) inside a phone frame |
+| `public/style.css` | Phone frame, button growth, form and receipt styling |
+| `public/app.js` | Button logic, copy, confetti, Supabase inserts |
+| `public/supabase-config.js` | Your Supabase URL, anon key and table name |
 | `supabase/schema.sql` | Table, Row Level Security policy and a summary view |
 
 ## Setup
@@ -21,10 +21,10 @@ tells them exactly how many tries it took. Every click is pushed to Supabase.
 2. Open the SQL editor and run `supabase/schema.sql`.
 3. In Project Settings -> API, copy the **Project URL** and **anon public** key
    into `supabase-config.js`.
-4. Serve the folder over HTTP (any static host works):
+4. Serve the `public` folder over HTTP (any static host works):
 
    ```bash
-   python3 -m http.server 8080
+   python3 -m http.server 8080 --directory public
    ```
 
    Then open http://localhost:8080 on your phone or in a browser.
@@ -57,7 +57,7 @@ service role key, which must never be put in this site.
 ## Deploy to Cloudflare
 
 This is a static site with no build step. It deploys as a Cloudflare Worker
-serving static assets (configured in `wrangler.toml`).
+serving the static files in `public/` (configured in `wrangler.toml`).
 
 **Option A: Git integration**
 
@@ -77,5 +77,4 @@ npx wrangler deploy
 ```
 
 `_headers` sets security headers including a Content Security Policy that
-allows only the Supabase JS CDN and your Supabase project. `.assetsignore`
-keeps the README, SQL and config files out of the public upload.
+allows only the Supabase JS CDN and your Supabase project.

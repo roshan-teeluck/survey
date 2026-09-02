@@ -3,3 +3,4 @@ node_modules/
 .wrangler/
 # personal working notes, not part of the site
 prompt.txt
+.wrangler/
