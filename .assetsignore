@@ -1,0 +1,8 @@
+# Files that should not be uploaded as public site assets
+README.md
+supabase/
+wrangler.toml
+.gitignore
+.assetsignore
+.git/
+prompt.txt

@@ -54,31 +54,28 @@ The anon key is public by design. The Row Level Security policy in the schema le
 the anon role **insert only**. Reading the responses requires the dashboard or the
 service role key, which must never be put in this site.
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare
 
-This is a static site with no build step.
+This is a static site with no build step. It deploys as a Cloudflare Worker
+serving static assets (configured in `wrangler.toml`).
 
-**Option A: Git integration (recommended)**
+**Option A: Git integration**
 
-1. Cloudflare dashboard -> Workers & Pages -> Create -> Pages -> Connect to Git.
+1. Cloudflare dashboard -> Workers & Pages -> Create -> Import a repository.
 2. Pick the `roshan-teeluck/survey` repository.
 3. Build settings:
-   - Framework preset: **None**
    - Build command: *(leave empty)*
-   - Build output directory: `/`
+   - Deploy command: `npx wrangler deploy`
+   - Root directory: *(leave empty)*
 4. Save and Deploy. Every push to `main` redeploys automatically.
 
 **Option B: from the terminal**
 
 ```bash
 npx wrangler login
-npx wrangler pages deploy
+npx wrangler deploy
 ```
 
-`wrangler.toml` already points the output directory at the repo root, and
 `_headers` sets security headers including a Content Security Policy that
-allows only the Supabase JS CDN and your Supabase project.
-
-After the first deploy, add the Pages URL (for example
-`https://survey.pages.dev`) to Supabase -> Authentication -> URL Configuration
-only if you later add auth. Anonymous inserts need no extra configuration.
+allows only the Supabase JS CDN and your Supabase project. `.assetsignore`
+keeps the README, SQL and config files out of the public upload.

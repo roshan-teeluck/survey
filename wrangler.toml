@@ -1,4 +1,9 @@
-# Lets you deploy from the terminal with:  npx wrangler pages deploy
+# Cloudflare Workers static-assets config.
+# Deploys with:  npx wrangler deploy   (also used by the Git integration's Deploy command)
 name = "survey"
 compatibility_date = "2026-09-01"
-pages_build_output_dir = "."
+
+[assets]
+directory = "."
+html_handling = "auto-trailing-slash"
+not_found_handling = "single-page-application"
