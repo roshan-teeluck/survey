@@ -8,6 +8,7 @@ create table if not exists public.proposal_responses (
   attempt_number integer     not null,
   button_label   text,
   reason         text,
+  message        text,
   user_agent     text
 );
 
@@ -32,7 +33,8 @@ select
   min(created_at)                                          as started_at,
   count(*) filter (where event_type = 'no')                as no_count,
   bool_or(event_type = 'yes')                              as said_yes,
-  max(reason) filter (where event_type = 'reason')         as reason
+  max(reason) filter (where event_type = 'reason')         as reason,
+  max(message) filter (where event_type = 'reason')        as message
 from public.proposal_responses
 group by session_id
 order by started_at desc;

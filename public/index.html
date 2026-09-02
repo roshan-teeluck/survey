@@ -40,6 +40,13 @@
           <label class="radio"><input type="radio" name="reason" value="Tax benefits" /><span>Tax benefits</span></label>
           <label class="radio"><input type="radio" name="reason" value="I couldn't find the No button anymore" /><span>I couldn't find the No button anymore</span></label>
 
+          <label class="message-field">
+            <span class="message-label">Anything to add? <em>(optional, will be read aloud at the wedding)</em></span>
+            <textarea id="custom-message" name="message" rows="3" maxlength="280"
+              placeholder="e.g. I said no 14 times purely for the drama."></textarea>
+            <span class="char-count" id="char-count">0 / 280</span>
+          </label>
+
           <button type="submit" class="btn btn-submit" id="btn-submit">Submit Application</button>
           <p class="error" id="reason-error" hidden>Please pick a reason. HR requires it.</p>
         </form>

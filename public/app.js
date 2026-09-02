@@ -79,6 +79,8 @@
   const form = $("#reason-form");
   const btnSubmit = $("#btn-submit");
   const reasonError = $("#reason-error");
+  const messageInput = $("#custom-message");
+  const charCount = $("#char-count");
   const thanksMessage = $("#thanks-message");
   const receipt = $("#receipt");
   const syncStatus = $("#sync-status");
@@ -110,6 +112,7 @@
       attempt_number: state.noCount,
       button_label: extra.buttonLabel ?? null,
       reason: extra.reason ?? null,
+      message: extra.message ?? null,
       user_agent: navigator.userAgent,
     };
 
@@ -218,9 +221,10 @@
     btnSubmit.disabled = true;
     btnSubmit.textContent = "Processing your feelings...";
 
-    const result = await record("reason", { reason: chosen.value });
+    const message = messageInput.value.trim() || null;
+    const result = await record("reason", { reason: chosen.value, message });
 
-    renderThanks(chosen.value, result);
+    renderThanks(chosen.value, message, result);
     showScreen("thanks");
     launchConfetti();
   });
@@ -228,7 +232,11 @@
   // ------------------------------------------------------------
   // Screen 3: Thank you
   // ------------------------------------------------------------
-  function renderThanks(reason, result) {
+  messageInput.addEventListener("input", () => {
+    charCount.textContent = `${messageInput.value.length} / ${messageInput.maxLength}`;
+  });
+
+  function renderThanks(reason, message, result) {
     const n = state.noCount;
     let line;
     if (n === 0) line = THANKS_LINES[0](n);
@@ -245,6 +253,7 @@
       <div>Times you said no: <strong>${n}</strong></div>
       <div>Times you said yes: <strong>1</strong> (the one that counts)</div>
       <div>Stated reason: <strong>${escapeHtml(reason)}</strong></div>
+      ${message ? `<div>In their own words: <strong>"${escapeHtml(message)}"</strong></div>` : ""}
       <div>Refund policy: <strong>none</strong></div>
     `;
 

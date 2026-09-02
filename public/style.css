@@ -95,7 +95,7 @@ body {
   }
 }
 
-button, .radio { touch-action: manipulation; }
+button, .radio, textarea { touch-action: manipulation; }
 
 /* ---------- Views ---------- */
 .view {
@@ -228,6 +228,42 @@ h1 {
   background: #fff0f4;
 }
 .radio input { accent-color: var(--pink); width: 18px; height: 18px; margin: 0; }
+
+.message-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+.message-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.message-label em {
+  font-weight: 400;
+  color: var(--muted);
+}
+#custom-message {
+  width: 100%;
+  resize: none;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 12px 14px;
+  border: 2px solid var(--grey);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+}
+#custom-message:focus { border-color: var(--pink); }
+.char-count {
+  align-self: flex-end;
+  font-size: 11px;
+  color: var(--muted);
+}
 
 .btn-submit {
   margin-top: 8px;
