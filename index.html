@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Will You Marry Me? (Legally Binding Survey)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- Screen 1: The Question -->
+      <section id="screen-question" class="view active">
+        <div class="emoji-hero" id="hero-emoji">💍</div>
+        <h1>Will you marry me?</h1>
+        <p class="subtitle" id="subtitle">Please answer honestly. This is a scientific survey.</p>
+
+        <div class="button-stack">
+          <button id="btn-yes" class="btn btn-yes">Yes 💖</button>
+          <button id="btn-no" class="btn btn-no">No</button>
+        </div>
+
+        <p class="counter" id="counter"></p>
+      </section>
+
+      <!-- Screen 2: Why though -->
+      <section id="screen-reason" class="view">
+        <div class="emoji-hero">🥹</div>
+        <h1>You said yes!</h1>
+        <p class="subtitle">For quality assurance purposes, please tell us why.</p>
+
+        <form id="reason-form">
+          <label class="radio"><input type="radio" name="reason" value="Because you are my bebeuu" /><span>Because you are my bebeuu</span></label>
+          <label class="radio"><input type="radio" name="reason" value="The Yes button was too big to miss" /><span>The Yes button was too big to miss</span></label>
+          <label class="radio"><input type="radio" name="reason" value="You wore me down" /><span>You wore me down</span></label>
+          <label class="radio"><input type="radio" name="reason" value="I need someone to kill spiders" /><span>I need someone to kill spiders</span></label>
+          <label class="radio"><input type="radio" name="reason" value="Tax benefits" /><span>Tax benefits</span></label>
+          <label class="radio"><input type="radio" name="reason" value="I couldn't find the No button anymore" /><span>I couldn't find the No button anymore</span></label>
+
+          <button type="submit" class="btn btn-submit" id="btn-submit">Submit Application</button>
+          <p class="error" id="reason-error" hidden>Please pick a reason. HR requires it.</p>
+        </form>
+      </section>
+
+      <!-- Screen 3: Thank you -->
+      <section id="screen-thanks" class="view">
+        <div class="emoji-hero">🎉</div>
+        <h1>Thank you for your interest!</h1>
+        <p class="subtitle" id="thanks-message"></p>
+        <div class="receipt" id="receipt"></div>
+        <p class="fineprint">Your response has been recorded. A representative will contact you regarding rings, venues, and whose family we visit at Christmas.</p>
+        <p class="fineprint" id="sync-status"></p>
+      </section>
+
+    </div>
+    <div class="home-bar"></div>
+  </div>
+
+  <canvas id="confetti"></canvas>
+
+  <!-- Supabase client (UMD build, pinned) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

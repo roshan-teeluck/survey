@@ -1,0 +1,279 @@
+:root {
+  --pink: #ff5c8a;
+  --pink-dark: #e0416f;
+  --cream: #fff6f9;
+  --ink: #2b1a22;
+  --muted: #7a5c68;
+  --grey: #e6dde1;
+  --phone-w: 390px;
+  --phone-h: 844px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(circle at 20% 20%, #ffd6e2 0%, #f9c1d3 40%, #e8a9c4 100%);
+  color: var(--ink);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  min-height: 100vh;
+}
+
+/* ---------- Phone frame ---------- */
+.phone {
+  position: relative;
+  width: min(var(--phone-w), 100%, calc((100vh - 48px) * 390 / 844));
+  aspect-ratio: 390 / 844;
+  background: #111;
+  border-radius: 48px;
+  padding: 14px;
+  box-shadow:
+    0 40px 80px rgba(60, 10, 30, 0.35),
+    inset 0 0 0 2px #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.notch {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #111;
+  border-radius: 0 0 20px 20px;
+  z-index: 3;
+}
+
+.home-bar {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 3;
+}
+
+.screen {
+  position: relative;
+  flex: 1;
+  background: var(--cream);
+  border-radius: 36px;
+  overflow: hidden;
+}
+
+/* On real phones, drop the fake frame and go full-bleed */
+@media (max-width: 480px) {
+  body { padding: 0; }
+  .phone {
+    width: 100%;
+    max-height: none;
+    height: 100vh;
+    height: 100dvh;
+    aspect-ratio: auto;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .notch, .home-bar { display: none; }
+  .screen { border-radius: 0; }
+  .view {
+    padding-top: calc(24px + env(safe-area-inset-top));
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+}
+
+button, .radio { touch-action: manipulation; }
+
+/* ---------- Views ---------- */
+.view {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 24px 40px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.view.active { display: flex; animation: fadeIn 0.35s ease; }
+.view > * { flex-shrink: 0; }
+.view > :first-child { margin-top: auto; }
+.view > :last-child  { margin-bottom: auto; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.emoji-hero {
+  font-size: 72px;
+  line-height: 1;
+  margin-bottom: 12px;
+  animation: bounce 2s infinite ease-in-out;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+h1 {
+  font-size: 30px;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+  min-height: 2.8em;
+}
+
+/* ---------- Buttons ---------- */
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), font-size 0.25s ease, padding 0.25s ease, opacity 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.96); }
+
+.btn-yes {
+  background: var(--pink);
+  color: #fff;
+  font-size: 18px;
+  padding: 14px 40px;
+  box-shadow: 0 10px 24px rgba(255, 92, 138, 0.4);
+  max-width: 100%;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+.btn-yes:hover { background: var(--pink-dark); }
+
+.btn-no {
+  background: var(--grey);
+  color: var(--muted);
+  font-size: 16px;
+  padding: 12px 32px;
+  max-width: 100%;
+}
+.btn-no:hover { background: #d9cfd4; }
+
+.counter {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--muted);
+  min-height: 1.2em;
+}
+
+/* Shake when user says no */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+.shake { animation: shake 0.4s ease; }
+
+/* ---------- Form ---------- */
+#reason-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 2px solid var(--grey);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.radio:has(input:checked) {
+  border-color: var(--pink);
+  background: #fff0f4;
+}
+.radio input { accent-color: var(--pink); width: 18px; height: 18px; margin: 0; }
+
+.btn-submit {
+  margin-top: 8px;
+  background: var(--pink);
+  color: #fff;
+  font-size: 16px;
+  padding: 14px;
+  width: 100%;
+}
+.btn-submit:disabled { opacity: 0.6; cursor: wait; }
+
+.error {
+  color: #c0392b;
+  font-size: 13px;
+  margin: 4px 0 0;
+  text-align: center;
+}
+
+/* ---------- Thank you ---------- */
+.receipt {
+  background: #fff;
+  border: 2px dashed var(--pink);
+  border-radius: 14px;
+  padding: 16px;
+  width: 100%;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+  text-align: left;
+  line-height: 1.7;
+  margin: 8px 0 16px;
+}
+.receipt strong { color: var(--pink-dark); }
+
+.fineprint {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 6px;
+}
+
+/* ---------- Confetti canvas ---------- */
+#confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
