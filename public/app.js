@@ -255,6 +255,8 @@
       <div>Stated reason: <strong>${escapeHtml(reason)}</strong></div>
       ${message ? `<div>In their own words: <strong>"${escapeHtml(message)}"</strong></div>` : ""}
       <div>Refund policy: <strong>none</strong></div>
+      <div>Date set for: <strong>14 September 2026</strong> 📅</div>
+      <div>Attendance: <strong>mandatory</strong></div>
     `;
 
     if (!supabaseConfigured) {
